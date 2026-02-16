@@ -1,0 +1,1780 @@
+app:
+  description: 一个能够生成、编辑和混合图像的工作流应用
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: ComfyUI 图像生成助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/comfyui:0.3.4@c1a73c68e49e30207840cf68de4003d73fb03c2ff1148484244c0416083b8ff0
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1771231611343-source-1771232082434-target
+      selected: false
+      source: '1771231611343'
+      sourceHandle: source
+      target: '1771232082434'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1771232082434-true-1771232458378-target
+      selected: false
+      source: '1771232082434'
+      sourceHandle: 'true'
+      target: '1771232458378'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1771232082434-c85ea07f-6184-43a8-9a97-0a1100386744-17712324621640-target
+      selected: false
+      source: '1771232082434'
+      sourceHandle: c85ea07f-6184-43a8-9a97-0a1100386744
+      target: '17712324621640'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1771232082434-false-17712324628120-target
+      selected: false
+      source: '1771232082434'
+      sourceHandle: 'false'
+      target: '17712324628120'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: answer
+      id: 1771232458378-source-answer-target
+      source: '1771232458378'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: answer
+      id: 17712324621640-source-answer-target
+      source: '17712324621640'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: answer
+      id: 17712324628120-source-answer-target
+      source: '17712324628120'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 功能选择
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: Todo
+      height: 108
+      id: '1771231611343'
+      position:
+        x: 3.0372102151986837
+        y: 387.35681904967385
+      positionAbsolute:
+        x: 3.0372102151986837
+        y: 387.35681904967385
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: 生成的图片如下：{{#1771232458378.files#}}{{#17712324621640.files#}}{{#17712324628120.files#}}
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 140
+      id: answer
+      position:
+        x: 922.9945580060839
+        y: 408.35681904967385
+      positionAbsolute:
+        x: 922.9945580060839
+        y: 408.35681904967385
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: d26f012d-2723-45b5-bfb2-7b658be30b8f
+            value: 文生图
+            varType: string
+            variable_selector:
+            - '1771231611343'
+            - Todo
+          id: 'true'
+          logical_operator: and
+        - case_id: c85ea07f-6184-43a8-9a97-0a1100386744
+          conditions:
+          - comparison_operator: contains
+            id: 78db373b-8012-40b7-98d3-ee9afe4ed7bc
+            value: 图像编辑
+            varType: string
+            variable_selector:
+            - '1771231611343'
+            - Todo
+          id: c85ea07f-6184-43a8-9a97-0a1100386744
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 171
+      id: '1771232082434'
+      position:
+        x: 304.1859085701956
+        y: 363.95911151502077
+      positionAbsolute:
+        x: 304.1859085701956
+        y: 363.95911151502077
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_team_authorization: false
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: exported from ComfyUI workflow
+            ja_JP: ComfyUI よりエクスポートされたワークフロー
+            pt_BR: exported from ComfyUI workflow
+            zh_Hans: 从ComfyUI的工作流中导出
+          label:
+            en_US: Workflow JSON
+            ja_JP: ワークフロー JSON
+            pt_BR: Workflow JSON
+            zh_Hans: Workflow JSON
+          llm_description: ''
+          max: null
+          min: null
+          name: workflow_json
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The input images
+            ja_JP: 入力画像
+            pt_BR: The input images
+            zh_Hans: 输入的图片
+          label:
+            en_US: Input Images
+            ja_JP: Input Images
+            pt_BR: Input Images
+            zh_Hans: 输入的图片
+          llm_description: The input images, used to transfer to the comfyui workflow
+            to generate another image.
+          max: null
+          min: null
+          name: images
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: files
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            ja_JP: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            pt_BR: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            zh_Hans: 当工作流有多个图片节点时，输入这些节点的ID列表，图片将按列表顺序传给ComfyUI
+          label:
+            en_US: Image Node ID List
+            ja_JP: Image Node ID List
+            pt_BR: Image Node ID List
+            zh_Hans: 图片节点ID列表
+          llm_description: ''
+          max: null
+          min: null
+          name: image_ids
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If enabled, all the seeds in the workflow will be randomized.
+            ja_JP: If enabled, all the seeds in the workflow will be randomized.
+            pt_BR: If enabled, all the seeds in the workflow will be randomized.
+            zh_Hans: If enabled, all the seeds in the workflow will be randomized.
+          label:
+            en_US: Randomize seeds
+            ja_JP: Randomize seeds
+            pt_BR: Randomize seeds
+            zh_Hans: Randomize seeds
+          llm_description: ''
+          max: null
+          min: null
+          name: randomize_seed
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If enabled, all the models in the workflow will be downloaded.
+            ja_JP: If enabled, all the models in the workflow will be downloaded.
+            pt_BR: If enabled, all the models in the workflow will be downloaded.
+            zh_Hans: If enabled, all the models in the workflow will be downloaded.
+          label:
+            en_US: Download models
+            ja_JP: Download models
+            pt_BR: Download models
+            zh_Hans: Download models
+          llm_description: ''
+          max: null
+          min: null
+          name: enable_download
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If you only want to download models, set this to False
+            ja_JP: If you only want to download models, set this to False
+            pt_BR: If you only want to download models, set this to False
+            zh_Hans: If you only want to download models, set this to False
+          label:
+            en_US: Execute Workflow
+            ja_JP: Execute Workflow
+            pt_BR: Execute Workflow
+            zh_Hans: Execute Workflow
+          llm_description: ''
+          max: null
+          min: null
+          name: execute_workflow
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        params:
+          enable_download: ''
+          execute_workflow: ''
+          image_ids: ''
+          images: ''
+          randomize_seed: ''
+          workflow_json: ''
+        plugin_id: langgenius/comfyui
+        plugin_unique_identifier: langgenius/comfyui:0.3.4@c1a73c68e49e30207840cf68de4003d73fb03c2ff1148484244c0416083b8ff0
+        provider_icon: https://cloud.dify.ai/console/api/workspaces/current/plugin/icon?tenant_id=b4dc33f1-720d-4fe1-b3bb-f68c9de7fcfb&filename=192df0dcf21e64aaf779d6ff3df7489fce6691d0915220f9e83574185619851d.png
+        provider_id: langgenius/comfyui/comfyui
+        provider_name: langgenius/comfyui/comfyui
+        provider_type: builtin
+        selected: false
+        title: 文生图
+        tool_configurations:
+          enable_download:
+            type: constant
+            value: true
+          execute_workflow:
+            type: constant
+            value: true
+          randomize_seed:
+            type: constant
+            value: true
+        tool_description: 运行ComfyUI工作流。
+        tool_label: 工作流
+        tool_name: workflow
+        tool_node_version: '2'
+        tool_parameters:
+          image_ids:
+            type: mixed
+            value: null
+          images:
+            type: variable
+            value:
+            - sys
+            - files
+          workflow_json:
+            type: mixed
+            value: "{\n  \"id\": \"1f11b311-f965-4253-ba1a-a466e0d50e8c\",\n  \"revision\"\
+              : 0,\n  \"last_node_id\": 39,\n  \"last_link_id\": 73,\n  \"nodes\"\
+              : [\n    {\n      \"id\": 30,\n      \"type\": \"CheckpointLoaderSimple\"\
+              ,\n      \"pos\": [\n        48,\n        192\n      ],\n      \"size\"\
+              : [\n        315,\n        98\n      ],\n      \"flags\": {},\n    \
+              \  \"order\": 0,\n      \"mode\": 0,\n      \"inputs\": [],\n      \"\
+              outputs\": [\n        {\n          \"name\": \"MODEL\",\n          \"\
+              type\": \"MODEL\",\n          \"slot_index\": 0,\n          \"links\"\
+              : [\n            47\n          ]\n        },\n        {\n          \"\
+              name\": \"CLIP\",\n          \"type\": \"CLIP\",\n          \"slot_index\"\
+              : 1,\n          \"links\": [\n            54,\n            71,\n   \
+              \         72\n          ]\n        },\n        {\n          \"name\"\
+              : \"VAE\",\n          \"type\": \"VAE\",\n          \"slot_index\":\
+              \ 2,\n          \"links\": [\n            46\n          ]\n        }\n\
+              \      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.73\",\n        \"Node name for S&R\": \"CheckpointLoaderSimple\"\
+              ,\n        \"models\": [\n          {\n            \"name\": \"flux1-dev-fp8.safetensors\"\
+              ,\n            \"url\": \"https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors?download=true\"\
+              ,\n            \"directory\": \"checkpoints\"\n          }\n       \
+              \ ]\n      },\n      \"widgets_values\": [\n        \"flux1-dev-fp8.safetensors\"\
+              \n      ]\n    },\n    {\n      \"id\": 8,\n      \"type\": \"VAEDecode\"\
+              ,\n      \"pos\": [\n        1450.5796578874392,\n        279.66381635949324\n\
+              \      ],\n      \"size\": [\n        210,\n        46\n      ],\n \
+              \     \"flags\": {},\n      \"order\": 7,\n      \"mode\": 0,\n    \
+              \  \"inputs\": [\n        {\n          \"name\": \"samples\",\n    \
+              \      \"type\": \"LATENT\",\n          \"link\": 52\n        },\n \
+              \       {\n          \"name\": \"vae\",\n          \"type\": \"VAE\"\
+              ,\n          \"link\": 46\n        }\n      ],\n      \"outputs\": [\n\
+              \        {\n          \"name\": \"IMAGE\",\n          \"type\": \"IMAGE\"\
+              ,\n          \"slot_index\": 0,\n          \"links\": [\n          \
+              \  9\n          ]\n        }\n      ],\n      \"properties\": {\n  \
+              \      \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.73\",\n \
+              \       \"Node name for S&R\": \"VAEDecode\"\n      },\n      \"widgets_values\"\
+              : []\n    },\n    {\n      \"id\": 9,\n      \"type\": \"SaveImage\"\
+              ,\n      \"pos\": [\n        1674.5796578874392,\n        278.66381635949324\n\
+              \      ],\n      \"size\": [\n        298.8718671120271,\n        58\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 8,\n      \"mode\"\
+              : 0,\n      \"inputs\": [\n        {\n          \"name\": \"images\"\
+              ,\n          \"type\": \"IMAGE\",\n          \"link\": 9\n        }\n\
+              \      ],\n      \"outputs\": [],\n      \"properties\": {\n       \
+              \ \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.73\"\n      },\n\
+              \      \"widgets_values\": [\n        \"ComfyUI\"\n      ]\n    },\n\
+              \    {\n      \"id\": 31,\n      \"type\": \"KSampler\",\n      \"pos\"\
+              : [\n        967.447461838624,\n        271.7372306663235\n      ],\n\
+              \      \"size\": [\n        315,\n        262\n      ],\n      \"flags\"\
+              : {},\n      \"order\": 6,\n      \"mode\": 0,\n      \"inputs\": [\n\
+              \        {\n          \"name\": \"model\",\n          \"type\": \"MODEL\"\
+              ,\n          \"link\": 47\n        },\n        {\n          \"name\"\
+              : \"positive\",\n          \"type\": \"CONDITIONING\",\n          \"\
+              link\": 57\n        },\n        {\n          \"name\": \"negative\"\
+              ,\n          \"type\": \"CONDITIONING\",\n          \"link\": 55\n \
+              \       },\n        {\n          \"name\": \"latent_image\",\n     \
+              \     \"type\": \"LATENT\",\n          \"link\": 51\n        }\n   \
+              \   ],\n      \"outputs\": [\n        {\n          \"name\": \"LATENT\"\
+              ,\n          \"type\": \"LATENT\",\n          \"slot_index\": 0,\n \
+              \         \"links\": [\n            52\n          ]\n        }\n   \
+              \   ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.73\",\n        \"Node name for S&R\": \"KSampler\"\
+              \n      },\n      \"widgets_values\": [\n        1007317410041875,\n\
+              \        \"fixed\",\n        20,\n        1,\n        \"euler\",\n \
+              \       \"simple\",\n        1\n      ]\n    },\n    {\n      \"id\"\
+              : 35,\n      \"type\": \"FluxGuidance\",\n      \"pos\": [\n       \
+              \ 959.4884570791189,\n        99.93362484737752\n      ],\n      \"\
+              size\": [\n        211.6,\n        58\n      ],\n      \"flags\": {},\n\
+              \      \"order\": 5,\n      \"mode\": 0,\n      \"inputs\": [\n    \
+              \    {\n          \"name\": \"conditioning\",\n          \"type\": \"\
+              CONDITIONING\",\n          \"link\": 69\n        }\n      ],\n     \
+              \ \"outputs\": [\n        {\n          \"name\": \"CONDITIONING\",\n\
+              \          \"type\": \"CONDITIONING\",\n          \"slot_index\": 0,\n\
+              \          \"links\": [\n            57\n          ]\n        }\n  \
+              \    ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.73\",\n        \"Node name for S&R\": \"FluxGuidance\"\
+              \n      },\n      \"widgets_values\": [\n        3.5\n      ]\n    },\n\
+              \    {\n      \"id\": 6,\n      \"type\": \"CLIPTextEncode\",\n    \
+              \  \"pos\": [\n        502.42481489922864,\n        -153.32124069403397\n\
+              \      ],\n      \"size\": [\n        422.85,\n        164.31\n    \
+              \  ],\n      \"flags\": {},\n      \"order\": 4,\n      \"mode\": 0,\n\
+              \      \"inputs\": [\n        {\n          \"name\": \"clip\",\n   \
+              \       \"type\": \"CLIP\",\n          \"link\": 72\n        },\n  \
+              \      {\n          \"name\": \"text\",\n          \"type\": \"STRING\"\
+              ,\n          \"widget\": {\n            \"name\": \"text\"\n       \
+              \   },\n          \"link\": 73\n        }\n      ],\n      \"outputs\"\
+              : [\n        {\n          \"name\": \"CONDITIONING\",\n          \"\
+              type\": \"CONDITIONING\",\n          \"slot_index\": 0,\n          \"\
+              links\": [\n            69\n          ]\n        }\n      ],\n     \
+              \ \"title\": \"CLIP Text Encode (Positive Prompt)\",\n      \"properties\"\
+              : {\n        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.73\"\
+              ,\n        \"Node name for S&R\": \"CLIPTextEncode\"\n      },\n   \
+              \   \"widgets_values\": [\n        \"\"\n      ],\n      \"color\":\
+              \ \"#232\",\n      \"bgcolor\": \"#353\"\n    },\n    {\n      \"id\"\
+              : 33,\n      \"type\": \"CLIPTextEncode\",\n      \"pos\": [\n     \
+              \   432.98320805535246,\n        370.0420441486972\n      ],\n     \
+              \ \"size\": [\n        422.85,\n        164.31\n      ],\n      \"flags\"\
+              : {\n        \"collapsed\": true\n      },\n      \"order\": 2,\n  \
+              \    \"mode\": 0,\n      \"inputs\": [\n        {\n          \"name\"\
+              : \"clip\",\n          \"type\": \"CLIP\",\n          \"link\": 54\n\
+              \        }\n      ],\n      \"outputs\": [\n        {\n          \"\
+              name\": \"CONDITIONING\",\n          \"type\": \"CONDITIONING\",\n \
+              \         \"slot_index\": 0,\n          \"links\": [\n            55\n\
+              \          ]\n        }\n      ],\n      \"title\": \"CLIP Text Encode\
+              \ (Negative Prompt)\",\n      \"properties\": {\n        \"cnr_id\"\
+              : \"comfy-core\",\n        \"ver\": \"0.3.73\",\n        \"Node name\
+              \ for S&R\": \"CLIPTextEncode\"\n      },\n      \"widgets_values\"\
+              : [\n        \"\"\n      ],\n      \"color\": \"#322\",\n      \"bgcolor\"\
+              : \"#533\"\n    },\n    {\n      \"id\": 27,\n      \"type\": \"EmptySD3LatentImage\"\
+              ,\n      \"pos\": [\n        421.1644102654084,\n        480.8379026610689\n\
+              \      ],\n      \"size\": [\n        315,\n        106\n      ],\n\
+              \      \"flags\": {},\n      \"order\": 1,\n      \"mode\": 0,\n   \
+              \   \"inputs\": [],\n      \"outputs\": [\n        {\n          \"name\"\
+              : \"LATENT\",\n          \"type\": \"LATENT\",\n          \"slot_index\"\
+              : 0,\n          \"links\": [\n            51\n          ]\n        }\n\
+              \      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.73\",\n        \"Node name for S&R\": \"EmptySD3LatentImage\"\
+              \n      },\n      \"widgets_values\": [\n        1024,\n        1024,\n\
+              \        1\n      ],\n      \"color\": \"#323\",\n      \"bgcolor\"\
+              : \"#535\"\n    },\n    {\n      \"id\": 39,\n      \"type\": \"ArgosTranslateCLIPTextEncodeNode\"\
+              ,\n      \"pos\": [\n        494.5106580174741,\n        -420.6268375163589\n\
+              \      ],\n      \"size\": [\n        400,\n        200\n      ],\n\
+              \      \"flags\": {},\n      \"order\": 3,\n      \"mode\": 0,\n   \
+              \   \"inputs\": [\n        {\n          \"name\": \"clip\",\n      \
+              \    \"type\": \"CLIP\",\n          \"link\": 71\n        }\n      ],\n\
+              \      \"outputs\": [\n        {\n          \"name\": \"CONDITIONING\"\
+              ,\n          \"type\": \"CONDITIONING\",\n          \"links\": []\n\
+              \        },\n        {\n          \"name\": \"STRING\",\n          \"\
+              type\": \"STRING\",\n          \"links\": [\n            73\n      \
+              \    ]\n        }\n      ],\n      \"properties\": {\n        \"cnr_id\"\
+              : \"comfyui_custom_nodes_alekpet\",\n        \"ver\": \"f75fa7d544ee68eba0cf14a7ebb559a19fcf2f0d\"\
+              ,\n        \"Node name for S&R\": \"ArgosTranslateCLIPTextEncodeNode\"\
+              ,\n        \"aux_id\": \"AlekPet/ComfyUI_Custom_Nodes_AlekPet\"\n  \
+              \    },\n      \"widgets_values\": [\n        \"chinese\",\n       \
+              \ \"english\",\n        \"@用户输入\"\n      ]\n    }\n  ],\n  \"links\"\
+              : [\n    [\n      9,\n      8,\n      0,\n      9,\n      0,\n     \
+              \ \"IMAGE\"\n    ],\n    [\n      46,\n      30,\n      2,\n      8,\n\
+              \      1,\n      \"VAE\"\n    ],\n    [\n      47,\n      30,\n    \
+              \  0,\n      31,\n      0,\n      \"MODEL\"\n    ],\n    [\n      51,\n\
+              \      27,\n      0,\n      31,\n      3,\n      \"LATENT\"\n    ],\n\
+              \    [\n      52,\n      31,\n      0,\n      8,\n      0,\n      \"\
+              LATENT\"\n    ],\n    [\n      54,\n      30,\n      1,\n      33,\n\
+              \      0,\n      \"CLIP\"\n    ],\n    [\n      55,\n      33,\n   \
+              \   0,\n      31,\n      2,\n      \"CONDITIONING\"\n    ],\n    [\n\
+              \      57,\n      35,\n      0,\n      31,\n      1,\n      \"CONDITIONING\"\
+              \n    ],\n    [\n      69,\n      6,\n      0,\n      35,\n      0,\n\
+              \      \"CONDITIONING\"\n    ],\n    [\n      71,\n      30,\n     \
+              \ 1,\n      39,\n      0,\n      \"CLIP\"\n    ],\n    [\n      72,\n\
+              \      30,\n      1,\n      6,\n      0,\n      \"CLIP\"\n    ],\n \
+              \   [\n      73,\n      39,\n      1,\n      6,\n      1,\n      \"\
+              STRING\"\n    ]\n  ],\n  \"groups\": [],\n  \"config\": {},\n  \"extra\"\
+              : {\n    \"ds\": {\n      \"scale\": 0.5583580956473938,\n      \"offset\"\
+              : [\n        490.43146006030383,\n        639.8603335676117\n      ]\n\
+              \    },\n    \"frontendVersion\": \"1.30.6\"\n  },\n  \"version\": 0.4\n\
+              }"
+        type: tool
+      height: 139
+      id: '1771232458378'
+      position:
+        x: 610.9572468671827
+        y: 211.8312380518667
+      positionAbsolute:
+        x: 610.9572468671827
+        y: 211.8312380518667
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_team_authorization: false
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: exported from ComfyUI workflow
+            ja_JP: ComfyUI よりエクスポートされたワークフロー
+            pt_BR: exported from ComfyUI workflow
+            zh_Hans: 从ComfyUI的工作流中导出
+          label:
+            en_US: Workflow JSON
+            ja_JP: ワークフロー JSON
+            pt_BR: Workflow JSON
+            zh_Hans: Workflow JSON
+          llm_description: ''
+          max: null
+          min: null
+          name: workflow_json
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The input images
+            ja_JP: 入力画像
+            pt_BR: The input images
+            zh_Hans: 输入的图片
+          label:
+            en_US: Input Images
+            ja_JP: Input Images
+            pt_BR: Input Images
+            zh_Hans: 输入的图片
+          llm_description: The input images, used to transfer to the comfyui workflow
+            to generate another image.
+          max: null
+          min: null
+          name: images
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: files
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            ja_JP: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            pt_BR: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            zh_Hans: 当工作流有多个图片节点时，输入这些节点的ID列表，图片将按列表顺序传给ComfyUI
+          label:
+            en_US: Image Node ID List
+            ja_JP: Image Node ID List
+            pt_BR: Image Node ID List
+            zh_Hans: 图片节点ID列表
+          llm_description: ''
+          max: null
+          min: null
+          name: image_ids
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If enabled, all the seeds in the workflow will be randomized.
+            ja_JP: If enabled, all the seeds in the workflow will be randomized.
+            pt_BR: If enabled, all the seeds in the workflow will be randomized.
+            zh_Hans: If enabled, all the seeds in the workflow will be randomized.
+          label:
+            en_US: Randomize seeds
+            ja_JP: Randomize seeds
+            pt_BR: Randomize seeds
+            zh_Hans: Randomize seeds
+          llm_description: ''
+          max: null
+          min: null
+          name: randomize_seed
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If enabled, all the models in the workflow will be downloaded.
+            ja_JP: If enabled, all the models in the workflow will be downloaded.
+            pt_BR: If enabled, all the models in the workflow will be downloaded.
+            zh_Hans: If enabled, all the models in the workflow will be downloaded.
+          label:
+            en_US: Download models
+            ja_JP: Download models
+            pt_BR: Download models
+            zh_Hans: Download models
+          llm_description: ''
+          max: null
+          min: null
+          name: enable_download
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If you only want to download models, set this to False
+            ja_JP: If you only want to download models, set this to False
+            pt_BR: If you only want to download models, set this to False
+            zh_Hans: If you only want to download models, set this to False
+          label:
+            en_US: Execute Workflow
+            ja_JP: Execute Workflow
+            pt_BR: Execute Workflow
+            zh_Hans: Execute Workflow
+          llm_description: ''
+          max: null
+          min: null
+          name: execute_workflow
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        params:
+          enable_download: ''
+          execute_workflow: ''
+          image_ids: ''
+          images: ''
+          randomize_seed: ''
+          workflow_json: ''
+        plugin_id: langgenius/comfyui
+        plugin_unique_identifier: langgenius/comfyui:0.3.4@c1a73c68e49e30207840cf68de4003d73fb03c2ff1148484244c0416083b8ff0
+        provider_icon: https://cloud.dify.ai/console/api/workspaces/current/plugin/icon?tenant_id=b4dc33f1-720d-4fe1-b3bb-f68c9de7fcfb&filename=192df0dcf21e64aaf779d6ff3df7489fce6691d0915220f9e83574185619851d.png
+        provider_id: langgenius/comfyui/comfyui
+        provider_name: langgenius/comfyui/comfyui
+        provider_type: builtin
+        selected: false
+        title: 图像编辑
+        tool_configurations:
+          enable_download:
+            type: constant
+            value: true
+          execute_workflow:
+            type: constant
+            value: true
+          randomize_seed:
+            type: constant
+            value: true
+        tool_description: 运行ComfyUI工作流。
+        tool_label: 工作流
+        tool_name: workflow
+        tool_node_version: '2'
+        tool_parameters:
+          image_ids:
+            type: mixed
+            value: '46'
+          images:
+            type: variable
+            value:
+            - sys
+            - files
+          workflow_json:
+            type: mixed
+            value: "{\n  \"id\": \"7c048efb-a059-44e2-970a-43e1eb472d0d\",\n  \"revision\"\
+              : 0,\n  \"last_node_id\": 68,\n  \"last_link_id\": 168,\n  \"nodes\"\
+              : [\n    {\n      \"id\": 48,\n      \"type\": \"Flux2Scheduler\",\n\
+              \      \"pos\": [\n        -160,\n        260\n      ],\n      \"size\"\
+              : [\n        222.3482666015625,\n        106\n      ],\n      \"flags\"\
+              : {},\n      \"order\": 11,\n      \"mode\": 0,\n      \"inputs\": [\n\
+              \        {\n          \"name\": \"width\",\n          \"type\": \"INT\"\
+              ,\n          \"widget\": {\n            \"name\": \"width\"\n      \
+              \    },\n          \"link\": 136\n        },\n        {\n          \"\
+              name\": \"height\",\n          \"type\": \"INT\",\n          \"widget\"\
+              : {\n            \"name\": \"height\"\n          },\n          \"link\"\
+              : 138\n        }\n      ],\n      \"outputs\": [\n        {\n      \
+              \    \"name\": \"SIGMAS\",\n          \"type\": \"SIGMAS\",\n      \
+              \    \"links\": [\n            132\n          ]\n        }\n      ],\n\
+              \      \"properties\": {\n        \"cnr_id\": \"comfy-core\",\n    \
+              \    \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"Flux2Scheduler\"\
+              \n      },\n      \"widgets_values\": [\n        20,\n        1248,\n\
+              \        832\n      ]\n    },\n    {\n      \"id\": 22,\n      \"type\"\
+              : \"BasicGuider\",\n      \"pos\": [\n        -160,\n        70\n  \
+              \    ],\n      \"size\": [\n        222.3482666015625,\n        46\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 20,\n      \"mode\"\
+              : 0,\n      \"inputs\": [\n        {\n          \"name\": \"model\"\
+              ,\n          \"type\": \"MODEL\",\n          \"link\": 133\n       \
+              \ },\n        {\n          \"name\": \"conditioning\",\n          \"\
+              type\": \"CONDITIONING\",\n          \"link\": 153\n        }\n    \
+              \  ],\n      \"outputs\": [\n        {\n          \"name\": \"GUIDER\"\
+              ,\n          \"type\": \"GUIDER\",\n          \"slot_index\": 0,\n \
+              \         \"links\": [\n            30\n          ]\n        }\n   \
+              \   ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"BasicGuider\"\
+              \n      },\n      \"widgets_values\": []\n    },\n    {\n      \"id\"\
+              : 40,\n      \"type\": \"VAEEncode\",\n      \"pos\": [\n        -405.919921875,\n\
+              \        880\n      ],\n      \"size\": [\n        140,\n        46\n\
+              \      ],\n      \"flags\": {\n        \"collapsed\": true\n      },\n\
+              \      \"order\": 14,\n      \"mode\": 4,\n      \"inputs\": [\n   \
+              \     {\n          \"name\": \"pixels\",\n          \"type\": \"IMAGE\"\
+              ,\n          \"link\": 122\n        },\n        {\n          \"name\"\
+              : \"vae\",\n          \"type\": \"VAE\",\n          \"link\": 120\n\
+              \        }\n      ],\n      \"outputs\": [\n        {\n          \"\
+              name\": \"LATENT\",\n          \"type\": \"LATENT\",\n          \"links\"\
+              : [\n            121\n          ]\n        }\n      ],\n      \"properties\"\
+              : {\n        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\"\
+              ,\n        \"Node name for S&R\": \"VAEEncode\"\n      },\n      \"\
+              widgets_values\": []\n    },\n    {\n      \"id\": 42,\n      \"type\"\
+              : \"LoadImage\",\n      \"pos\": [\n        -540,\n        400\n   \
+              \   ],\n      \"size\": [\n        274.080078125,\n        314\n   \
+              \   ],\n      \"flags\": {},\n      \"order\": 0,\n      \"mode\": 4,\n\
+              \      \"inputs\": [],\n      \"outputs\": [\n        {\n          \"\
+              name\": \"IMAGE\",\n          \"type\": \"IMAGE\",\n          \"links\"\
+              : [\n            123\n          ]\n        },\n        {\n         \
+              \ \"name\": \"MASK\",\n          \"type\": \"MASK\",\n          \"links\"\
+              : null\n        }\n      ],\n      \"properties\": {\n        \"cnr_id\"\
+              : \"comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"Node name\
+              \ for S&R\": \"LoadImage\"\n      },\n      \"widgets_values\": [\n\
+              \        \"image_flux2_input_image.png\",\n        \"image\"\n     \
+              \ ]\n    },\n    {\n      \"id\": 39,\n      \"type\": \"ReferenceLatent\"\
+              ,\n      \"pos\": [\n        -463.6328125,\n        920\n      ],\n\
+              \      \"size\": [\n        197.712890625,\n        46\n      ],\n \
+              \     \"flags\": {},\n      \"order\": 19,\n      \"mode\": 4,\n   \
+              \   \"inputs\": [\n        {\n          \"name\": \"conditioning\",\n\
+              \          \"type\": \"CONDITIONING\",\n          \"link\": 145\n  \
+              \      },\n        {\n          \"name\": \"latent\",\n          \"\
+              shape\": 7,\n          \"type\": \"LATENT\",\n          \"link\": 121\n\
+              \        }\n      ],\n      \"outputs\": [\n        {\n          \"\
+              name\": \"CONDITIONING\",\n          \"type\": \"CONDITIONING\",\n \
+              \         \"links\": [\n            153\n          ]\n        }\n  \
+              \    ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"ReferenceLatent\"\
+              \n      },\n      \"widgets_values\": []\n    },\n    {\n      \"id\"\
+              : 16,\n      \"type\": \"KSamplerSelect\",\n      \"pos\": [\n     \
+              \   -160,\n        160\n      ],\n      \"size\": [\n        222.3482666015625,\n\
+              \        58\n      ],\n      \"flags\": {},\n      \"order\": 1,\n \
+              \     \"mode\": 0,\n      \"inputs\": [],\n      \"outputs\": [\n  \
+              \      {\n          \"name\": \"SAMPLER\",\n          \"type\": \"SAMPLER\"\
+              ,\n          \"links\": [\n            19\n          ]\n        }\n\
+              \      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"KSamplerSelect\"\
+              \n      },\n      \"widgets_values\": [\n        \"euler\"\n      ]\n\
+              \    },\n    {\n      \"id\": 43,\n      \"type\": \"ReferenceLatent\"\
+              ,\n      \"pos\": [\n        -910,\n        920\n      ],\n      \"\
+              size\": [\n        197.712890625,\n        46\n      ],\n      \"flags\"\
+              : {},\n      \"order\": 18,\n      \"mode\": 0,\n      \"inputs\": [\n\
+              \        {\n          \"name\": \"conditioning\",\n          \"type\"\
+              : \"CONDITIONING\",\n          \"link\": 144\n        },\n        {\n\
+              \          \"name\": \"latent\",\n          \"shape\": 7,\n        \
+              \  \"type\": \"LATENT\",\n          \"link\": 125\n        }\n     \
+              \ ],\n      \"outputs\": [\n        {\n          \"name\": \"CONDITIONING\"\
+              ,\n          \"type\": \"CONDITIONING\",\n          \"links\": [\n \
+              \           145\n          ]\n        }\n      ],\n      \"properties\"\
+              : {\n        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\"\
+              ,\n        \"Node name for S&R\": \"ReferenceLatent\"\n      },\n  \
+              \    \"widgets_values\": []\n    },\n    {\n      \"id\": 50,\n    \
+              \  \"type\": \"PrimitiveNode\",\n      \"pos\": [\n        -160,\n \
+              \       470\n      ],\n      \"size\": [\n        210,\n        82\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 2,\n      \"mode\"\
+              : 0,\n      \"inputs\": [],\n      \"outputs\": [\n        {\n     \
+              \     \"name\": \"INT\",\n          \"type\": \"INT\",\n          \"\
+              widget\": {\n            \"name\": \"width\"\n          },\n       \
+              \   \"links\": [\n            135,\n            136\n          ]\n \
+              \       }\n      ],\n      \"title\": \"width\",\n      \"properties\"\
+              : {\n        \"Run widget replace on values\": false\n      },\n   \
+              \   \"widgets_values\": [\n        1248,\n        \"fixed\"\n      ],\n\
+              \      \"color\": \"#223\",\n      \"bgcolor\": \"#335\"\n    },\n \
+              \   {\n      \"id\": 51,\n      \"type\": \"PrimitiveNode\",\n     \
+              \ \"pos\": [\n        -160,\n        590\n      ],\n      \"size\":\
+              \ [\n        210,\n        82\n      ],\n      \"flags\": {},\n    \
+              \  \"order\": 3,\n      \"mode\": 0,\n      \"inputs\": [],\n      \"\
+              outputs\": [\n        {\n          \"name\": \"INT\",\n          \"\
+              type\": \"INT\",\n          \"widget\": {\n            \"name\": \"\
+              height\"\n          },\n          \"links\": [\n            137,\n \
+              \           138\n          ]\n        }\n      ],\n      \"title\":\
+              \ \"height\",\n      \"properties\": {\n        \"Run widget replace\
+              \ on values\": false\n      },\n      \"widgets_values\": [\n      \
+              \  832,\n        \"fixed\"\n      ],\n      \"color\": \"#223\",\n \
+              \     \"bgcolor\": \"#335\"\n    },\n    {\n      \"id\": 10,\n    \
+              \  \"type\": \"VAELoader\",\n      \"pos\": [\n        -973.1827364834872,\n\
+              \        230\n      ],\n      \"size\": [\n        298.1818181818182,\n\
+              \        60.429901123046875\n      ],\n      \"flags\": {},\n      \"\
+              order\": 4,\n      \"mode\": 0,\n      \"inputs\": [],\n      \"outputs\"\
+              : [\n        {\n          \"name\": \"VAE\",\n          \"type\": \"\
+              VAE\",\n          \"slot_index\": 0,\n          \"links\": [\n     \
+              \       120,\n            127,\n            159\n          ]\n     \
+              \   }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"VAELoader\"\
+              ,\n        \"models\": [\n          {\n            \"name\": \"flux2-vae.safetensors\"\
+              ,\n            \"url\": \"https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/vae/flux2-vae.safetensors\"\
+              ,\n            \"directory\": \"vae\"\n          }\n        ]\n    \
+              \  },\n      \"widgets_values\": [\n        \"flux2-vae.safetensors\"\
+              \n      ]\n    },\n    {\n      \"id\": 47,\n      \"type\": \"EmptyFlux2LatentImage\"\
+              ,\n      \"pos\": [\n        110,\n        500\n      ],\n      \"size\"\
+              : [\n        270,\n        106\n      ],\n      \"flags\": {},\n   \
+              \   \"order\": 10,\n      \"mode\": 0,\n      \"inputs\": [\n      \
+              \  {\n          \"name\": \"width\",\n          \"type\": \"INT\",\n\
+              \          \"widget\": {\n            \"name\": \"width\"\n        \
+              \  },\n          \"link\": 135\n        },\n        {\n          \"\
+              name\": \"height\",\n          \"type\": \"INT\",\n          \"widget\"\
+              : {\n            \"name\": \"height\"\n          },\n          \"link\"\
+              : 137\n        }\n      ],\n      \"outputs\": [\n        {\n      \
+              \    \"name\": \"LATENT\",\n          \"type\": \"LATENT\",\n      \
+              \    \"links\": [\n            161\n          ]\n        }\n      ],\n\
+              \      \"properties\": {\n        \"cnr_id\": \"comfy-core\",\n    \
+              \    \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"EmptyFlux2LatentImage\"\
+              \n      },\n      \"widgets_values\": [\n        1248,\n        832,\n\
+              \        1\n      ]\n    },\n    {\n      \"id\": 13,\n      \"type\"\
+              : \"SamplerCustomAdvanced\",\n      \"pos\": [\n        90,\n      \
+              \  -40\n      ],\n      \"size\": [\n        272.3617858886719,\n  \
+              \      124.53733825683594\n      ],\n      \"flags\": {},\n      \"\
+              order\": 21,\n      \"mode\": 0,\n      \"inputs\": [\n        {\n \
+              \         \"name\": \"noise\",\n          \"type\": \"NOISE\",\n   \
+              \       \"link\": 37\n        },\n        {\n          \"name\": \"\
+              guider\",\n          \"type\": \"GUIDER\",\n          \"link\": 30\n\
+              \        },\n        {\n          \"name\": \"sampler\",\n         \
+              \ \"type\": \"SAMPLER\",\n          \"link\": 19\n        },\n     \
+              \   {\n          \"name\": \"sigmas\",\n          \"type\": \"SIGMAS\"\
+              ,\n          \"link\": 132\n        },\n        {\n          \"name\"\
+              : \"latent_image\",\n          \"type\": \"LATENT\",\n          \"link\"\
+              : 161\n        }\n      ],\n      \"outputs\": [\n        {\n      \
+              \    \"name\": \"output\",\n          \"type\": \"LATENT\",\n      \
+              \    \"slot_index\": 0,\n          \"links\": [\n            24\n  \
+              \        ]\n        },\n        {\n          \"name\": \"denoised_output\"\
+              ,\n          \"type\": \"LATENT\",\n          \"links\": null\n    \
+              \    }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"SamplerCustomAdvanced\"\
+              \n      },\n      \"widgets_values\": []\n    },\n    {\n      \"id\"\
+              : 41,\n      \"type\": \"ImageScaleToTotalPixels\",\n      \"pos\":\
+              \ [\n        -535.919921875,\n        750\n      ],\n      \"size\"\
+              : [\n        270,\n        82\n      ],\n      \"flags\": {},\n    \
+              \  \"order\": 9,\n      \"mode\": 4,\n      \"inputs\": [\n        {\n\
+              \          \"name\": \"image\",\n          \"type\": \"IMAGE\",\n  \
+              \        \"link\": 123\n        }\n      ],\n      \"outputs\": [\n\
+              \        {\n          \"name\": \"IMAGE\",\n          \"type\": \"IMAGE\"\
+              ,\n          \"links\": [\n            122\n          ]\n        }\n\
+              \      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"ImageScaleToTotalPixels\"\
+              \n      },\n      \"widgets_values\": [\n        \"lanczos\",\n    \
+              \    1\n      ]\n    },\n    {\n      \"id\": 8,\n      \"type\": \"\
+              VAEDecode\",\n      \"pos\": [\n        -140,\n        750\n      ],\n\
+              \      \"size\": [\n        210,\n        46\n      ],\n      \"flags\"\
+              : {},\n      \"order\": 22,\n      \"mode\": 0,\n      \"inputs\": [\n\
+              \        {\n          \"name\": \"samples\",\n          \"type\": \"\
+              LATENT\",\n          \"link\": 24\n        },\n        {\n         \
+              \ \"name\": \"vae\",\n          \"type\": \"VAE\",\n          \"link\"\
+              : 159\n        }\n      ],\n      \"outputs\": [\n        {\n      \
+              \    \"name\": \"IMAGE\",\n          \"type\": \"IMAGE\",\n        \
+              \  \"slot_index\": 0,\n          \"links\": [\n            9\n     \
+              \     ]\n        }\n      ],\n      \"properties\": {\n        \"cnr_id\"\
+              : \"comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"Node name\
+              \ for S&R\": \"VAEDecode\"\n      },\n      \"widgets_values\": []\n\
+              \    },\n    {\n      \"id\": 45,\n      \"type\": \"ImageScaleToTotalPixels\"\
+              ,\n      \"pos\": [\n        -970,\n        750\n      ],\n      \"\
+              size\": [\n        270,\n        82\n      ],\n      \"flags\": {},\n\
+              \      \"order\": 13,\n      \"mode\": 0,\n      \"inputs\": [\n   \
+              \     {\n          \"name\": \"image\",\n          \"type\": \"IMAGE\"\
+              ,\n          \"link\": 128\n        }\n      ],\n      \"outputs\":\
+              \ [\n        {\n          \"name\": \"IMAGE\",\n          \"type\":\
+              \ \"IMAGE\",\n          \"links\": [\n            126\n          ]\n\
+              \        }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"\
+              comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"Node name for\
+              \ S&R\": \"ImageScaleToTotalPixels\"\n      },\n      \"widgets_values\"\
+              : [\n        \"lanczos\",\n        1\n      ]\n    },\n    {\n     \
+              \ \"id\": 12,\n      \"type\": \"UNETLoader\",\n      \"pos\": [\n \
+              \       -973.1827364834872,\n        -42\n      ],\n      \"size\":\
+              \ [\n        298.1818181818182,\n        82\n      ],\n      \"flags\"\
+              : {},\n      \"order\": 5,\n      \"mode\": 0,\n      \"inputs\": [],\n\
+              \      \"outputs\": [\n        {\n          \"name\": \"MODEL\",\n \
+              \         \"type\": \"MODEL\",\n          \"slot_index\": 0,\n     \
+              \     \"links\": [\n            133\n          ]\n        }\n      ],\n\
+              \      \"properties\": {\n        \"cnr_id\": \"comfy-core\",\n    \
+              \    \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"UNETLoader\"\
+              ,\n        \"models\": [\n          {\n            \"name\": \"flux2_dev_fp8mixed.safetensors\"\
+              ,\n            \"url\": \"https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/diffusion_models/flux2_dev_fp8mixed.safetensors\"\
+              ,\n            \"directory\": \"diffusion_models\"\n          }\n  \
+              \      ]\n      },\n      \"widgets_values\": [\n        \"flux2_dev_fp8mixed.safetensors\"\
+              ,\n        \"default\"\n      ]\n    },\n    {\n      \"id\": 25,\n\
+              \      \"type\": \"RandomNoise\",\n      \"pos\": [\n        -160,\n\
+              \        -50\n      ],\n      \"size\": [\n        222.3482666015625,\n\
+              \        82\n      ],\n      \"flags\": {},\n      \"order\": 6,\n \
+              \     \"mode\": 0,\n      \"inputs\": [],\n      \"outputs\": [\n  \
+              \      {\n          \"name\": \"NOISE\",\n          \"type\": \"NOISE\"\
+              ,\n          \"links\": [\n            37\n          ]\n        }\n\
+              \      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"RandomNoise\"\
+              \n      },\n      \"widgets_values\": [\n        154134801357294,\n\
+              \        \"randomize\"\n      ]\n    },\n    {\n      \"id\": 38,\n\
+              \      \"type\": \"CLIPLoader\",\n      \"pos\": [\n        -973.1827364834872,\n\
+              \        82\n      ],\n      \"size\": [\n        298.1818181818182,\n\
+              \        106\n      ],\n      \"flags\": {},\n      \"order\": 7,\n\
+              \      \"mode\": 0,\n      \"inputs\": [],\n      \"outputs\": [\n \
+              \       {\n          \"name\": \"CLIP\",\n          \"type\": \"CLIP\"\
+              ,\n          \"links\": [\n            165,\n            166\n     \
+              \     ]\n        }\n      ],\n      \"properties\": {\n        \"cnr_id\"\
+              : \"comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"Node name\
+              \ for S&R\": \"CLIPLoader\",\n        \"models\": [\n          {\n \
+              \           \"name\": \"mistral_3_small_flux2_bf16.safetensors\",\n\
+              \            \"url\": \"https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/text_encoders/mistral_3_small_flux2_bf16.safetensors\"\
+              ,\n            \"directory\": \"text_encoders\"\n          }\n     \
+              \   ]\n      },\n      \"widgets_values\": [\n        \"mistral_3_small_flux2_bf16.safetensors\"\
+              ,\n        \"flux2\",\n        \"default\"\n      ]\n    },\n    {\n\
+              \      \"id\": 44,\n      \"type\": \"VAEEncode\",\n      \"pos\": [\n\
+              \        -871.0515053684333,\n        875.6873962117998\n      ],\n\
+              \      \"size\": [\n        140,\n        46\n      ],\n      \"flags\"\
+              : {\n        \"collapsed\": true\n      },\n      \"order\": 16,\n \
+              \     \"mode\": 0,\n      \"inputs\": [\n        {\n          \"name\"\
+              : \"pixels\",\n          \"type\": \"IMAGE\",\n          \"link\": 126\n\
+              \        },\n        {\n          \"name\": \"vae\",\n          \"type\"\
+              : \"VAE\",\n          \"link\": 127\n        }\n      ],\n      \"outputs\"\
+              : [\n        {\n          \"name\": \"LATENT\",\n          \"type\"\
+              : \"LATENT\",\n          \"links\": [\n            125\n          ]\n\
+              \        }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"\
+              comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"Node name for\
+              \ S&R\": \"VAEEncode\"\n      },\n      \"widgets_values\": []\n   \
+              \ },\n    {\n      \"id\": 46,\n      \"type\": \"LoadImage\",\n   \
+              \   \"pos\": [\n        -974.3126827562614,\n        371.024053729937\n\
+              \      ],\n      \"size\": [\n        274.080078125,\n        314\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 8,\n      \"mode\"\
+              : 0,\n      \"inputs\": [],\n      \"outputs\": [\n        {\n     \
+              \     \"name\": \"IMAGE\",\n          \"type\": \"IMAGE\",\n       \
+              \   \"links\": [\n            128\n          ]\n        },\n       \
+              \ {\n          \"name\": \"MASK\",\n          \"type\": \"MASK\",\n\
+              \          \"links\": null\n        }\n      ],\n      \"properties\"\
+              : {\n        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\"\
+              ,\n        \"Node name for S&R\": \"LoadImage\"\n      },\n      \"\
+              widgets_values\": [\n        \"qq_font.jpg\",\n        \"image\"\n \
+              \     ]\n    },\n    {\n      \"id\": 9,\n      \"type\": \"SaveImage\"\
+              ,\n      \"pos\": [\n        410,\n        -90\n      ],\n      \"size\"\
+              : [\n        372.7585647137289,\n        468.3341752905312\n      ],\n\
+              \      \"flags\": {},\n      \"order\": 23,\n      \"mode\": 0,\n  \
+              \    \"inputs\": [\n        {\n          \"name\": \"images\",\n   \
+              \       \"type\": \"IMAGE\",\n          \"link\": 9\n        }\n   \
+              \   ],\n      \"outputs\": [],\n      \"properties\": {\n        \"\
+              cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\"\n      },\n \
+              \     \"widgets_values\": [\n        \"Flux2\"\n      ]\n    },\n  \
+              \  {\n      \"id\": 26,\n      \"type\": \"FluxGuidance\",\n      \"\
+              pos\": [\n        -577.7903279806044,\n        225.38220446836388\n\
+              \      ],\n      \"size\": [\n        317.4000244140625,\n        58\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 17,\n      \"mode\"\
+              : 0,\n      \"inputs\": [\n        {\n          \"name\": \"conditioning\"\
+              ,\n          \"type\": \"CONDITIONING\",\n          \"link\": 167\n\
+              \        }\n      ],\n      \"outputs\": [\n        {\n          \"\
+              name\": \"CONDITIONING\",\n          \"type\": \"CONDITIONING\",\n \
+              \         \"slot_index\": 0,\n          \"links\": [\n            144\n\
+              \          ]\n        }\n      ],\n      \"properties\": {\n       \
+              \ \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\",\n      \
+              \  \"Node name for S&R\": \"FluxGuidance\"\n      },\n      \"widgets_values\"\
+              : [\n        4\n      ],\n      \"color\": \"#233\",\n      \"bgcolor\"\
+              : \"#355\"\n    },\n    {\n      \"id\": 68,\n      \"type\": \"CLIPTextEncode\"\
+              ,\n      \"pos\": [\n        -569.4659755533868,\n        -63.86902985756475\n\
+              \      ],\n      \"size\": [\n        309.39954980613584,\n        236.78952524889706\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 15,\n      \"mode\"\
+              : 0,\n      \"inputs\": [\n        {\n          \"name\": \"clip\",\n\
+              \          \"type\": \"CLIP\",\n          \"link\": 166\n        },\n\
+              \        {\n          \"name\": \"text\",\n          \"type\": \"STRING\"\
+              ,\n          \"widget\": {\n            \"name\": \"text\"\n       \
+              \   },\n          \"link\": 168\n        }\n      ],\n      \"outputs\"\
+              : [\n        {\n          \"name\": \"CONDITIONING\",\n          \"\
+              type\": \"CONDITIONING\",\n          \"slot_index\": 0,\n          \"\
+              links\": [\n            167\n          ]\n        }\n      ],\n    \
+              \  \"title\": \"CLIP Text Encode (Positive Prompt)\",\n      \"properties\"\
+              : {\n        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\"\
+              ,\n        \"Node name for S&R\": \"CLIPTextEncode\"\n      },\n   \
+              \   \"widgets_values\": [\n        \"\"\n      ],\n      \"color\":\
+              \ \"#232\",\n      \"bgcolor\": \"#353\"\n    },\n    {\n      \"id\"\
+              : 67,\n      \"type\": \"ArgosTranslateCLIPTextEncodeNode\",\n     \
+              \ \"pos\": [\n        -612.5650255967261,\n        -318.7653439506385\n\
+              \      ],\n      \"size\": [\n        400,\n        200\n      ],\n\
+              \      \"flags\": {},\n      \"order\": 12,\n      \"mode\": 0,\n  \
+              \    \"inputs\": [\n        {\n          \"name\": \"clip\",\n     \
+              \     \"type\": \"CLIP\",\n          \"link\": 165\n        }\n    \
+              \  ],\n      \"outputs\": [\n        {\n          \"name\": \"CONDITIONING\"\
+              ,\n          \"type\": \"CONDITIONING\",\n          \"links\": null\n\
+              \        },\n        {\n          \"name\": \"STRING\",\n          \"\
+              type\": \"STRING\",\n          \"links\": [\n            168\n     \
+              \     ]\n        }\n      ],\n      \"properties\": {\n        \"cnr_id\"\
+              : \"comfyui_custom_nodes_alekpet\",\n        \"ver\": \"f75fa7d544ee68eba0cf14a7ebb559a19fcf2f0d\"\
+              ,\n        \"Node name for S&R\": \"ArgosTranslateCLIPTextEncodeNode\"\
+              ,\n        \"aux_id\": \"AlekPet/ComfyUI_Custom_Nodes_AlekPet\"\n  \
+              \    },\n      \"widgets_values\": [\n        \"chinese\",\n       \
+              \ \"english\",\n        \"@用户输入\"\n      ]\n    }\n  ],\n  \"links\"\
+              : [\n    [\n      9,\n      8,\n      0,\n      9,\n      0,\n     \
+              \ \"IMAGE\"\n    ],\n    [\n      19,\n      16,\n      0,\n      13,\n\
+              \      2,\n      \"SAMPLER\"\n    ],\n    [\n      24,\n      13,\n\
+              \      0,\n      8,\n      0,\n      \"LATENT\"\n    ],\n    [\n   \
+              \   30,\n      22,\n      0,\n      13,\n      1,\n      \"GUIDER\"\n\
+              \    ],\n    [\n      37,\n      25,\n      0,\n      13,\n      0,\n\
+              \      \"NOISE\"\n    ],\n    [\n      120,\n      10,\n      0,\n \
+              \     40,\n      1,\n      \"VAE\"\n    ],\n    [\n      121,\n    \
+              \  40,\n      0,\n      39,\n      1,\n      \"LATENT\"\n    ],\n  \
+              \  [\n      122,\n      41,\n      0,\n      40,\n      0,\n      \"\
+              IMAGE\"\n    ],\n    [\n      123,\n      42,\n      0,\n      41,\n\
+              \      0,\n      \"IMAGE\"\n    ],\n    [\n      125,\n      44,\n \
+              \     0,\n      43,\n      1,\n      \"LATENT\"\n    ],\n    [\n   \
+              \   126,\n      45,\n      0,\n      44,\n      0,\n      \"IMAGE\"\n\
+              \    ],\n    [\n      127,\n      10,\n      0,\n      44,\n      1,\n\
+              \      \"VAE\"\n    ],\n    [\n      128,\n      46,\n      0,\n   \
+              \   45,\n      0,\n      \"IMAGE\"\n    ],\n    [\n      132,\n    \
+              \  48,\n      0,\n      13,\n      3,\n      \"SIGMAS\"\n    ],\n  \
+              \  [\n      133,\n      12,\n      0,\n      22,\n      0,\n      \"\
+              MODEL\"\n    ],\n    [\n      135,\n      50,\n      0,\n      47,\n\
+              \      0,\n      \"INT\"\n    ],\n    [\n      136,\n      50,\n   \
+              \   0,\n      48,\n      0,\n      \"INT\"\n    ],\n    [\n      137,\n\
+              \      51,\n      0,\n      47,\n      1,\n      \"INT\"\n    ],\n \
+              \   [\n      138,\n      51,\n      0,\n      48,\n      1,\n      \"\
+              INT\"\n    ],\n    [\n      144,\n      26,\n      0,\n      43,\n \
+              \     0,\n      \"CONDITIONING\"\n    ],\n    [\n      145,\n      43,\n\
+              \      0,\n      39,\n      0,\n      \"CONDITIONING\"\n    ],\n   \
+              \ [\n      153,\n      39,\n      0,\n      22,\n      1,\n      \"\
+              CONDITIONING\"\n    ],\n    [\n      159,\n      10,\n      0,\n   \
+              \   8,\n      1,\n      \"VAE\"\n    ],\n    [\n      161,\n      47,\n\
+              \      0,\n      13,\n      4,\n      \"LATENT\"\n    ],\n    [\n  \
+              \    165,\n      38,\n      0,\n      67,\n      0,\n      \"CLIP\"\n\
+              \    ],\n    [\n      166,\n      38,\n      0,\n      68,\n      0,\n\
+              \      \"CLIP\"\n    ],\n    [\n      167,\n      68,\n      0,\n  \
+              \    26,\n      0,\n      \"CONDITIONING\"\n    ],\n    [\n      168,\n\
+              \      67,\n      1,\n      68,\n      1,\n      \"STRING\"\n    ]\n\
+              \  ],\n  \"groups\": [\n    {\n      \"id\": 1,\n      \"title\": \"\
+              Step 1 - Upload models\",\n      \"bounding\": [\n        -980,\n  \
+              \      -120,\n        318.18181818181813,\n        416.0299011230469\n\
+              \      ],\n      \"color\": \"#3f789e\",\n      \"font_size\": 24,\n\
+              \      \"flags\": {}\n    },\n    {\n      \"id\": 2,\n      \"title\"\
+              : \"Custom sampler\",\n      \"bounding\": [\n        -170,\n      \
+              \  -120,\n        558.5359191894531,\n        501.6\n      ],\n    \
+              \  \"color\": \"#3f789e\",\n      \"font_size\": 24,\n      \"flags\"\
+              : {}\n    },\n    {\n      \"id\": 3,\n      \"title\": \"Step 4- Image\
+              \ size\",\n      \"bounding\": [\n        -170,\n        400,\n    \
+              \    560,\n        285.6\n      ],\n      \"color\": \"#3f789e\",\n\
+              \      \"font_size\": 24,\n      \"flags\": {}\n    },\n    {\n    \
+              \  \"id\": 4,\n      \"title\": \"Step2 - Prompt\",\n      \"bounding\"\
+              : [\n        -636.9639228267686,\n        -404.5008321357525,\n    \
+              \    444.30722401578737,\n        710.3316620597152\n      ],\n    \
+              \  \"color\": \"#3f789e\",\n      \"font_size\": 24,\n      \"flags\"\
+              : {}\n    },\n    {\n      \"id\": 5,\n      \"title\": \"Step 3- Reference\
+              \ images\",\n      \"bounding\": [\n        -980,\n        320,\n  \
+              \      790,\n        700\n      ],\n      \"color\": \"#3f789e\",\n\
+              \      \"font_size\": 24,\n      \"flags\": {}\n    }\n  ],\n  \"config\"\
+              : {},\n  \"extra\": {\n    \"ds\": {\n      \"scale\": 0.5279075115445523,\n\
+              \      \"offset\": [\n        1819.1702350996482,\n        842.1232911607416\n\
+              \      ]\n    },\n    \"frontendVersion\": \"1.30.6\",\n    \"groupNodes\"\
+              : {},\n    \"VHS_latentpreview\": false,\n    \"VHS_latentpreviewrate\"\
+              : 0,\n    \"VHS_MetadataImage\": true,\n    \"VHS_KeepIntermediate\"\
+              : true,\n    \"workflowRendererVersion\": \"LG\"\n  },\n  \"version\"\
+              : 0.4\n}"
+        type: tool
+      height: 139
+      id: '17712324621640'
+      position:
+        x: 610.9572468671827
+        y: 396.9159414366989
+      positionAbsolute:
+        x: 610.9572468671827
+        y: 396.9159414366989
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_team_authorization: false
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: exported from ComfyUI workflow
+            ja_JP: ComfyUI よりエクスポートされたワークフロー
+            pt_BR: exported from ComfyUI workflow
+            zh_Hans: 从ComfyUI的工作流中导出
+          label:
+            en_US: Workflow JSON
+            ja_JP: ワークフロー JSON
+            pt_BR: Workflow JSON
+            zh_Hans: Workflow JSON
+          llm_description: ''
+          max: null
+          min: null
+          name: workflow_json
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The input images
+            ja_JP: 入力画像
+            pt_BR: The input images
+            zh_Hans: 输入的图片
+          label:
+            en_US: Input Images
+            ja_JP: Input Images
+            pt_BR: Input Images
+            zh_Hans: 输入的图片
+          llm_description: The input images, used to transfer to the comfyui workflow
+            to generate another image.
+          max: null
+          min: null
+          name: images
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: files
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            ja_JP: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            pt_BR: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            zh_Hans: 当工作流有多个图片节点时，输入这些节点的ID列表，图片将按列表顺序传给ComfyUI
+          label:
+            en_US: Image Node ID List
+            ja_JP: Image Node ID List
+            pt_BR: Image Node ID List
+            zh_Hans: 图片节点ID列表
+          llm_description: ''
+          max: null
+          min: null
+          name: image_ids
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If enabled, all the seeds in the workflow will be randomized.
+            ja_JP: If enabled, all the seeds in the workflow will be randomized.
+            pt_BR: If enabled, all the seeds in the workflow will be randomized.
+            zh_Hans: If enabled, all the seeds in the workflow will be randomized.
+          label:
+            en_US: Randomize seeds
+            ja_JP: Randomize seeds
+            pt_BR: Randomize seeds
+            zh_Hans: Randomize seeds
+          llm_description: ''
+          max: null
+          min: null
+          name: randomize_seed
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If enabled, all the models in the workflow will be downloaded.
+            ja_JP: If enabled, all the models in the workflow will be downloaded.
+            pt_BR: If enabled, all the models in the workflow will be downloaded.
+            zh_Hans: If enabled, all the models in the workflow will be downloaded.
+          label:
+            en_US: Download models
+            ja_JP: Download models
+            pt_BR: Download models
+            zh_Hans: Download models
+          llm_description: ''
+          max: null
+          min: null
+          name: enable_download
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If you only want to download models, set this to False
+            ja_JP: If you only want to download models, set this to False
+            pt_BR: If you only want to download models, set this to False
+            zh_Hans: If you only want to download models, set this to False
+          label:
+            en_US: Execute Workflow
+            ja_JP: Execute Workflow
+            pt_BR: Execute Workflow
+            zh_Hans: Execute Workflow
+          llm_description: ''
+          max: null
+          min: null
+          name: execute_workflow
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        params:
+          enable_download: ''
+          execute_workflow: ''
+          image_ids: ''
+          images: ''
+          randomize_seed: ''
+          workflow_json: ''
+        plugin_id: langgenius/comfyui
+        plugin_unique_identifier: langgenius/comfyui:0.3.4@c1a73c68e49e30207840cf68de4003d73fb03c2ff1148484244c0416083b8ff0
+        provider_icon: https://cloud.dify.ai/console/api/workspaces/current/plugin/icon?tenant_id=b4dc33f1-720d-4fe1-b3bb-f68c9de7fcfb&filename=192df0dcf21e64aaf779d6ff3df7489fce6691d0915220f9e83574185619851d.png
+        provider_id: langgenius/comfyui/comfyui
+        provider_name: langgenius/comfyui/comfyui
+        provider_type: builtin
+        selected: false
+        title: 图像混合
+        tool_configurations:
+          enable_download:
+            type: constant
+            value: true
+          execute_workflow:
+            type: constant
+            value: true
+          randomize_seed:
+            type: constant
+            value: true
+        tool_description: 运行ComfyUI工作流。
+        tool_label: 工作流
+        tool_name: workflow
+        tool_node_version: '2'
+        tool_parameters:
+          image_ids:
+            type: mixed
+            value: '46'
+          images:
+            type: variable
+            value:
+            - sys
+            - files
+          workflow_json:
+            type: mixed
+            value: "{\n  \"id\": \"7c048efb-a059-44e2-970a-43e1eb472d0d\",\n  \"revision\"\
+              : 0,\n  \"last_node_id\": 62,\n  \"last_link_id\": 155,\n  \"nodes\"\
+              : [\n    {\n      \"id\": 48,\n      \"type\": \"Flux2Scheduler\",\n\
+              \      \"pos\": [\n        -160,\n        260\n      ],\n      \"size\"\
+              : [\n        222.3482666015625,\n        106\n      ],\n      \"flags\"\
+              : {},\n      \"order\": 10,\n      \"mode\": 0,\n      \"inputs\": [\n\
+              \        {\n          \"name\": \"width\",\n          \"type\": \"INT\"\
+              ,\n          \"widget\": {\n            \"name\": \"width\"\n      \
+              \    },\n          \"link\": 136\n        },\n        {\n          \"\
+              name\": \"height\",\n          \"type\": \"INT\",\n          \"widget\"\
+              : {\n            \"name\": \"height\"\n          },\n          \"link\"\
+              : 138\n        }\n      ],\n      \"outputs\": [\n        {\n      \
+              \    \"name\": \"SIGMAS\",\n          \"type\": \"SIGMAS\",\n      \
+              \    \"links\": [\n            132\n          ]\n        }\n      ],\n\
+              \      \"properties\": {\n        \"cnr_id\": \"comfy-core\",\n    \
+              \    \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"Flux2Scheduler\"\
+              \n      },\n      \"widgets_values\": [\n        20,\n        1024,\n\
+              \        1024\n      ]\n    },\n    {\n      \"id\": 22,\n      \"type\"\
+              : \"BasicGuider\",\n      \"pos\": [\n        -160,\n        70\n  \
+              \    ],\n      \"size\": [\n        222.3482666015625,\n        46\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 20,\n      \"mode\"\
+              : 0,\n      \"inputs\": [\n        {\n          \"name\": \"model\"\
+              ,\n          \"type\": \"MODEL\",\n          \"link\": 133\n       \
+              \ },\n        {\n          \"name\": \"conditioning\",\n          \"\
+              type\": \"CONDITIONING\",\n          \"link\": 153\n        }\n    \
+              \  ],\n      \"outputs\": [\n        {\n          \"name\": \"GUIDER\"\
+              ,\n          \"type\": \"GUIDER\",\n          \"slot_index\": 0,\n \
+              \         \"links\": [\n            30\n          ]\n        }\n   \
+              \   ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"BasicGuider\"\
+              \n      },\n      \"widgets_values\": []\n    },\n    {\n      \"id\"\
+              : 45,\n      \"type\": \"ImageScaleToTotalPixels\",\n      \"pos\":\
+              \ [\n        -970,\n        750\n      ],\n      \"size\": [\n     \
+              \   270,\n        82\n      ],\n      \"flags\": {},\n      \"order\"\
+              : 13,\n      \"mode\": 0,\n      \"inputs\": [\n        {\n        \
+              \  \"name\": \"image\",\n          \"type\": \"IMAGE\",\n          \"\
+              link\": 128\n        }\n      ],\n      \"outputs\": [\n        {\n\
+              \          \"name\": \"IMAGE\",\n          \"type\": \"IMAGE\",\n  \
+              \        \"links\": [\n            126\n          ]\n        }\n   \
+              \   ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"ImageScaleToTotalPixels\"\
+              \n      },\n      \"widgets_values\": [\n        \"area\",\n       \
+              \ 1\n      ]\n    },\n    {\n      \"id\": 10,\n      \"type\": \"VAELoader\"\
+              ,\n      \"pos\": [\n        -973.1827364834872,\n        230\n    \
+              \  ],\n      \"size\": [\n        298.1818181818182,\n        60.429901123046875\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 0,\n      \"mode\"\
+              : 0,\n      \"inputs\": [],\n      \"outputs\": [\n        {\n     \
+              \     \"name\": \"VAE\",\n          \"type\": \"VAE\",\n          \"\
+              slot_index\": 0,\n          \"links\": [\n            12,\n        \
+              \    120,\n            127\n          ]\n        }\n      ],\n     \
+              \ \"properties\": {\n        \"cnr_id\": \"comfy-core\",\n        \"\
+              ver\": \"0.3.71\",\n        \"Node name for S&R\": \"VAELoader\",\n\
+              \        \"models\": [\n          {\n            \"name\": \"flux2-vae.safetensors\"\
+              ,\n            \"url\": \"https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/vae/flux2-vae.safetensors\"\
+              ,\n            \"directory\": \"vae\"\n          }\n        ]\n    \
+              \  },\n      \"widgets_values\": [\n        \"flux2-vae.safetensors\"\
+              \n      ]\n    },\n    {\n      \"id\": 40,\n      \"type\": \"VAEEncode\"\
+              ,\n      \"pos\": [\n        -405.919921875,\n        880\n      ],\n\
+              \      \"size\": [\n        140,\n        46\n      ],\n      \"flags\"\
+              : {\n        \"collapsed\": true\n      },\n      \"order\": 15,\n \
+              \     \"mode\": 0,\n      \"inputs\": [\n        {\n          \"name\"\
+              : \"pixels\",\n          \"type\": \"IMAGE\",\n          \"link\": 122\n\
+              \        },\n        {\n          \"name\": \"vae\",\n          \"type\"\
+              : \"VAE\",\n          \"link\": 120\n        }\n      ],\n      \"outputs\"\
+              : [\n        {\n          \"name\": \"LATENT\",\n          \"type\"\
+              : \"LATENT\",\n          \"links\": [\n            121\n          ]\n\
+              \        }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"\
+              comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"Node name for\
+              \ S&R\": \"VAEEncode\"\n      },\n      \"widgets_values\": []\n   \
+              \ },\n    {\n      \"id\": 41,\n      \"type\": \"ImageScaleToTotalPixels\"\
+              ,\n      \"pos\": [\n        -535.919921875,\n        750\n      ],\n\
+              \      \"size\": [\n        270,\n        82\n      ],\n      \"flags\"\
+              : {},\n      \"order\": 12,\n      \"mode\": 0,\n      \"inputs\": [\n\
+              \        {\n          \"name\": \"image\",\n          \"type\": \"IMAGE\"\
+              ,\n          \"link\": 123\n        }\n      ],\n      \"outputs\":\
+              \ [\n        {\n          \"name\": \"IMAGE\",\n          \"type\":\
+              \ \"IMAGE\",\n          \"links\": [\n            122\n          ]\n\
+              \        }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"\
+              comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"Node name for\
+              \ S&R\": \"ImageScaleToTotalPixels\"\n      },\n      \"widgets_values\"\
+              : [\n        \"area\",\n        1\n      ]\n    },\n    {\n      \"\
+              id\": 50,\n      \"type\": \"PrimitiveNode\",\n      \"pos\": [\n  \
+              \      -160,\n        469.2259963703385\n      ],\n      \"size\": [\n\
+              \        210,\n        82\n      ],\n      \"flags\": {},\n      \"\
+              order\": 1,\n      \"mode\": 0,\n      \"inputs\": [],\n      \"outputs\"\
+              : [\n        {\n          \"name\": \"INT\",\n          \"type\": \"\
+              INT\",\n          \"widget\": {\n            \"name\": \"width\"\n \
+              \         },\n          \"links\": [\n            135,\n           \
+              \ 136\n          ]\n        }\n      ],\n      \"title\": \"width\"\
+              ,\n      \"properties\": {\n        \"Run widget replace on values\"\
+              : false\n      },\n      \"widgets_values\": [\n        1024,\n    \
+              \    \"fixed\"\n      ],\n      \"color\": \"#223\",\n      \"bgcolor\"\
+              : \"#335\"\n    },\n    {\n      \"id\": 51,\n      \"type\": \"PrimitiveNode\"\
+              ,\n      \"pos\": [\n        -160,\n        589.2259963703385\n    \
+              \  ],\n      \"size\": [\n        210,\n        82\n      ],\n     \
+              \ \"flags\": {},\n      \"order\": 2,\n      \"mode\": 0,\n      \"\
+              inputs\": [],\n      \"outputs\": [\n        {\n          \"name\":\
+              \ \"INT\",\n          \"type\": \"INT\",\n          \"widget\": {\n\
+              \            \"name\": \"height\"\n          },\n          \"links\"\
+              : [\n            137,\n            138\n          ]\n        }\n   \
+              \   ],\n      \"title\": \"height\",\n      \"properties\": {\n    \
+              \    \"Run widget replace on values\": false\n      },\n      \"widgets_values\"\
+              : [\n        1024,\n        \"fixed\"\n      ],\n      \"color\": \"\
+              #223\",\n      \"bgcolor\": \"#335\"\n    },\n    {\n      \"id\": 8,\n\
+              \      \"type\": \"VAEDecode\",\n      \"pos\": [\n        170,\n  \
+              \      740\n      ],\n      \"size\": [\n        210,\n        46\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 22,\n      \"mode\"\
+              : 0,\n      \"inputs\": [\n        {\n          \"name\": \"samples\"\
+              ,\n          \"type\": \"LATENT\",\n          \"link\": 24\n       \
+              \ },\n        {\n          \"name\": \"vae\",\n          \"type\": \"\
+              VAE\",\n          \"link\": 12\n        }\n      ],\n      \"outputs\"\
+              : [\n        {\n          \"name\": \"IMAGE\",\n          \"type\":\
+              \ \"IMAGE\",\n          \"slot_index\": 0,\n          \"links\": [\n\
+              \            9\n          ]\n        }\n      ],\n      \"properties\"\
+              : {\n        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\"\
+              ,\n        \"Node name for S&R\": \"VAEDecode\"\n      },\n      \"\
+              widgets_values\": []\n    },\n    {\n      \"id\": 13,\n      \"type\"\
+              : \"SamplerCustomAdvanced\",\n      \"pos\": [\n        90,\n      \
+              \  -40\n      ],\n      \"size\": [\n        272.3617858886719,\n  \
+              \      124.53733825683594\n      ],\n      \"flags\": {},\n      \"\
+              order\": 21,\n      \"mode\": 0,\n      \"inputs\": [\n        {\n \
+              \         \"name\": \"noise\",\n          \"type\": \"NOISE\",\n   \
+              \       \"link\": 37\n        },\n        {\n          \"name\": \"\
+              guider\",\n          \"type\": \"GUIDER\",\n          \"link\": 30\n\
+              \        },\n        {\n          \"name\": \"sampler\",\n         \
+              \ \"type\": \"SAMPLER\",\n          \"link\": 19\n        },\n     \
+              \   {\n          \"name\": \"sigmas\",\n          \"type\": \"SIGMAS\"\
+              ,\n          \"link\": 132\n        },\n        {\n          \"name\"\
+              : \"latent_image\",\n          \"type\": \"LATENT\",\n          \"link\"\
+              : 131\n        }\n      ],\n      \"outputs\": [\n        {\n      \
+              \    \"name\": \"output\",\n          \"type\": \"LATENT\",\n      \
+              \    \"slot_index\": 0,\n          \"links\": [\n            24\n  \
+              \        ]\n        },\n        {\n          \"name\": \"denoised_output\"\
+              ,\n          \"type\": \"LATENT\",\n          \"links\": null\n    \
+              \    }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"SamplerCustomAdvanced\"\
+              \n      },\n      \"widgets_values\": []\n    },\n    {\n      \"id\"\
+              : 16,\n      \"type\": \"KSamplerSelect\",\n      \"pos\": [\n     \
+              \   -160,\n        160\n      ],\n      \"size\": [\n        222.3482666015625,\n\
+              \        58\n      ],\n      \"flags\": {},\n      \"order\": 3,\n \
+              \     \"mode\": 0,\n      \"inputs\": [],\n      \"outputs\": [\n  \
+              \      {\n          \"name\": \"SAMPLER\",\n          \"type\": \"SAMPLER\"\
+              ,\n          \"links\": [\n            19\n          ]\n        }\n\
+              \      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"KSamplerSelect\"\
+              \n      },\n      \"widgets_values\": [\n        \"euler\"\n      ]\n\
+              \    },\n    {\n      \"id\": 43,\n      \"type\": \"ReferenceLatent\"\
+              ,\n      \"pos\": [\n        -910,\n        920\n      ],\n      \"\
+              size\": [\n        197.712890625,\n        46\n      ],\n      \"flags\"\
+              : {},\n      \"order\": 18,\n      \"mode\": 0,\n      \"inputs\": [\n\
+              \        {\n          \"name\": \"conditioning\",\n          \"type\"\
+              : \"CONDITIONING\",\n          \"link\": 144\n        },\n        {\n\
+              \          \"name\": \"latent\",\n          \"shape\": 7,\n        \
+              \  \"type\": \"LATENT\",\n          \"link\": 125\n        }\n     \
+              \ ],\n      \"outputs\": [\n        {\n          \"name\": \"CONDITIONING\"\
+              ,\n          \"type\": \"CONDITIONING\",\n          \"links\": [\n \
+              \           145\n          ]\n        }\n      ],\n      \"properties\"\
+              : {\n        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\"\
+              ,\n        \"Node name for S&R\": \"ReferenceLatent\"\n      },\n  \
+              \    \"widgets_values\": []\n    },\n    {\n      \"id\": 39,\n    \
+              \  \"type\": \"ReferenceLatent\",\n      \"pos\": [\n        -463.6328125,\n\
+              \        920\n      ],\n      \"size\": [\n        197.712890625,\n\
+              \        46\n      ],\n      \"flags\": {},\n      \"order\": 19,\n\
+              \      \"mode\": 0,\n      \"inputs\": [\n        {\n          \"name\"\
+              : \"conditioning\",\n          \"type\": \"CONDITIONING\",\n       \
+              \   \"link\": 145\n        },\n        {\n          \"name\": \"latent\"\
+              ,\n          \"shape\": 7,\n          \"type\": \"LATENT\",\n      \
+              \    \"link\": 121\n        }\n      ],\n      \"outputs\": [\n    \
+              \    {\n          \"name\": \"CONDITIONING\",\n          \"type\": \"\
+              CONDITIONING\",\n          \"links\": [\n            153\n         \
+              \ ]\n        }\n      ],\n      \"properties\": {\n        \"cnr_id\"\
+              : \"comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"Node name\
+              \ for S&R\": \"ReferenceLatent\"\n      },\n      \"widgets_values\"\
+              : []\n    },\n    {\n      \"id\": 12,\n      \"type\": \"UNETLoader\"\
+              ,\n      \"pos\": [\n        -973.1827364834872,\n        -42\n    \
+              \  ],\n      \"size\": [\n        298.1818181818182,\n        82\n \
+              \     ],\n      \"flags\": {},\n      \"order\": 4,\n      \"mode\"\
+              : 0,\n      \"inputs\": [],\n      \"outputs\": [\n        {\n     \
+              \     \"name\": \"MODEL\",\n          \"type\": \"MODEL\",\n       \
+              \   \"slot_index\": 0,\n          \"links\": [\n            133\n  \
+              \        ]\n        }\n      ],\n      \"properties\": {\n        \"\
+              cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"\
+              Node name for S&R\": \"UNETLoader\",\n        \"models\": [\n      \
+              \    {\n            \"name\": \"flux2_dev_fp8mixed.safetensors\",\n\
+              \            \"url\": \"https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/diffusion_models/flux2_dev_fp8mixed.safetensors\"\
+              ,\n            \"directory\": \"diffusion_models\"\n          }\n  \
+              \      ]\n      },\n      \"widgets_values\": [\n        \"flux2_dev_fp8mixed.safetensors\"\
+              ,\n        \"default\"\n      ]\n    },\n    {\n      \"id\": 25,\n\
+              \      \"type\": \"RandomNoise\",\n      \"pos\": [\n        -160,\n\
+              \        -50\n      ],\n      \"size\": [\n        222.3482666015625,\n\
+              \        82\n      ],\n      \"flags\": {},\n      \"order\": 5,\n \
+              \     \"mode\": 0,\n      \"inputs\": [],\n      \"outputs\": [\n  \
+              \      {\n          \"name\": \"NOISE\",\n          \"type\": \"NOISE\"\
+              ,\n          \"links\": [\n            37\n          ]\n        }\n\
+              \      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"RandomNoise\"\
+              \n      },\n      \"widgets_values\": [\n        44990622483698,\n \
+              \       \"randomize\"\n      ]\n    },\n    {\n      \"id\": 47,\n \
+              \     \"type\": \"EmptyFlux2LatentImage\",\n      \"pos\": [\n     \
+              \   110,\n        500\n      ],\n      \"size\": [\n        270,\n \
+              \       106\n      ],\n      \"flags\": {},\n      \"order\": 9,\n \
+              \     \"mode\": 0,\n      \"inputs\": [\n        {\n          \"name\"\
+              : \"width\",\n          \"type\": \"INT\",\n          \"widget\": {\n\
+              \            \"name\": \"width\"\n          },\n          \"link\":\
+              \ 135\n        },\n        {\n          \"name\": \"height\",\n    \
+              \      \"type\": \"INT\",\n          \"widget\": {\n            \"name\"\
+              : \"height\"\n          },\n          \"link\": 137\n        }\n   \
+              \   ],\n      \"outputs\": [\n        {\n          \"name\": \"LATENT\"\
+              ,\n          \"type\": \"LATENT\",\n          \"links\": [\n       \
+              \     131\n          ]\n        }\n      ],\n      \"properties\": {\n\
+              \        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\",\n\
+              \        \"Node name for S&R\": \"EmptyFlux2LatentImage\"\n      },\n\
+              \      \"widgets_values\": [\n        1024,\n        1024,\n       \
+              \ 1\n      ]\n    },\n    {\n      \"id\": 38,\n      \"type\": \"CLIPLoader\"\
+              ,\n      \"pos\": [\n        -973.1827364834872,\n        82\n     \
+              \ ],\n      \"size\": [\n        298.1818181818182,\n        106\n \
+              \     ],\n      \"flags\": {},\n      \"order\": 6,\n      \"mode\"\
+              : 0,\n      \"inputs\": [],\n      \"outputs\": [\n        {\n     \
+              \     \"name\": \"CLIP\",\n          \"type\": \"CLIP\",\n         \
+              \ \"links\": [\n            117,\n            154\n          ]\n   \
+              \     }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"CLIPLoader\"\
+              ,\n        \"models\": [\n          {\n            \"name\": \"mistral_3_small_flux2_fp8.safetensors\"\
+              ,\n            \"url\": \"https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/text_encoders/mistral_3_small_flux2_fp8.safetensors\"\
+              ,\n            \"directory\": \"text_encoders\"\n          }\n     \
+              \   ]\n      },\n      \"widgets_values\": [\n        \"mistral_3_small_flux2_fp8.safetensors\"\
+              ,\n        \"flux2\",\n        \"default\"\n      ]\n    },\n    {\n\
+              \      \"id\": 42,\n      \"type\": \"LoadImage\",\n      \"pos\": [\n\
+              \        -494.7510287370997,\n        386.77121702569167\n      ],\n\
+              \      \"size\": [\n        274.080078125,\n        314\n      ],\n\
+              \      \"flags\": {},\n      \"order\": 7,\n      \"mode\": 0,\n   \
+              \   \"inputs\": [],\n      \"outputs\": [\n        {\n          \"name\"\
+              : \"IMAGE\",\n          \"type\": \"IMAGE\",\n          \"links\": [\n\
+              \            123\n          ]\n        },\n        {\n          \"name\"\
+              : \"MASK\",\n          \"type\": \"MASK\",\n          \"links\": null\n\
+              \        }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"\
+              comfy-core\",\n        \"ver\": \"0.3.71\",\n        \"Node name for\
+              \ S&R\": \"LoadImage\"\n      },\n      \"widgets_values\": [\n    \
+              \    \"20180711172910_LJW3z.jpeg\",\n        \"image\"\n      ]\n  \
+              \  },\n    {\n      \"id\": 46,\n      \"type\": \"LoadImage\",\n  \
+              \    \"pos\": [\n        -944.9060360774065,\n        389.0571236935649\n\
+              \      ],\n      \"size\": [\n        274.080078125,\n        314\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 8,\n      \"mode\"\
+              : 0,\n      \"inputs\": [],\n      \"outputs\": [\n        {\n     \
+              \     \"name\": \"IMAGE\",\n          \"type\": \"IMAGE\",\n       \
+              \   \"links\": [\n            128\n          ]\n        },\n       \
+              \ {\n          \"name\": \"MASK\",\n          \"type\": \"MASK\",\n\
+              \          \"links\": null\n        }\n      ],\n      \"properties\"\
+              : {\n        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\"\
+              ,\n        \"Node name for S&R\": \"LoadImage\"\n      },\n      \"\
+              widgets_values\": [\n        \"20ca58d0-f36d-40c1-9601-5e024565d882.jpg\"\
+              ,\n        \"image\"\n      ]\n    },\n    {\n      \"id\": 44,\n  \
+              \    \"type\": \"VAEEncode\",\n      \"pos\": [\n        -852.2859066678733,\n\
+              \        877.3672999751954\n      ],\n      \"size\": [\n        140,\n\
+              \        46\n      ],\n      \"flags\": {\n        \"collapsed\": true\n\
+              \      },\n      \"order\": 16,\n      \"mode\": 0,\n      \"inputs\"\
+              : [\n        {\n          \"name\": \"pixels\",\n          \"type\"\
+              : \"IMAGE\",\n          \"link\": 126\n        },\n        {\n     \
+              \     \"name\": \"vae\",\n          \"type\": \"VAE\",\n          \"\
+              link\": 127\n        }\n      ],\n      \"outputs\": [\n        {\n\
+              \          \"name\": \"LATENT\",\n          \"type\": \"LATENT\",\n\
+              \          \"links\": [\n            125\n          ]\n        }\n \
+              \     ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"VAEEncode\"\
+              \n      },\n      \"widgets_values\": []\n    },\n    {\n      \"id\"\
+              : 26,\n      \"type\": \"FluxGuidance\",\n      \"pos\": [\n       \
+              \ -571.1942795576197,\n        232.22504482907652\n      ],\n      \"\
+              size\": [\n        317.4000244140625,\n        58\n      ],\n      \"\
+              flags\": {},\n      \"order\": 17,\n      \"mode\": 0,\n      \"inputs\"\
+              : [\n        {\n          \"name\": \"conditioning\",\n          \"\
+              type\": \"CONDITIONING\",\n          \"link\": 41\n        }\n     \
+              \ ],\n      \"outputs\": [\n        {\n          \"name\": \"CONDITIONING\"\
+              ,\n          \"type\": \"CONDITIONING\",\n          \"slot_index\":\
+              \ 0,\n          \"links\": [\n            144\n          ]\n       \
+              \ }\n      ],\n      \"properties\": {\n        \"cnr_id\": \"comfy-core\"\
+              ,\n        \"ver\": \"0.3.71\",\n        \"Node name for S&R\": \"FluxGuidance\"\
+              \n      },\n      \"widgets_values\": [\n        0.2\n      ],\n   \
+              \   \"color\": \"#233\",\n      \"bgcolor\": \"#355\"\n    },\n    {\n\
+              \      \"id\": 6,\n      \"type\": \"CLIPTextEncode\",\n      \"pos\"\
+              : [\n        -568.4641073340957,\n        -64.0087463568923\n      ],\n\
+              \      \"size\": [\n        309.39954980613584,\n        236.78952524889706\n\
+              \      ],\n      \"flags\": {},\n      \"order\": 14,\n      \"mode\"\
+              : 0,\n      \"inputs\": [\n        {\n          \"name\": \"clip\",\n\
+              \          \"type\": \"CLIP\",\n          \"link\": 117\n        },\n\
+              \        {\n          \"name\": \"text\",\n          \"type\": \"STRING\"\
+              ,\n          \"widget\": {\n            \"name\": \"text\"\n       \
+              \   },\n          \"link\": 155\n        }\n      ],\n      \"outputs\"\
+              : [\n        {\n          \"name\": \"CONDITIONING\",\n          \"\
+              type\": \"CONDITIONING\",\n          \"slot_index\": 0,\n          \"\
+              links\": [\n            41\n          ]\n        }\n      ],\n     \
+              \ \"title\": \"CLIP Text Encode (Positive Prompt)\",\n      \"properties\"\
+              : {\n        \"cnr_id\": \"comfy-core\",\n        \"ver\": \"0.3.71\"\
+              ,\n        \"Node name for S&R\": \"CLIPTextEncode\"\n      },\n   \
+              \   \"widgets_values\": [\n        \"Apply the design from Reference\
+              \ Image 1 onto objects in Reference Image 2.\\n\"\n      ],\n      \"\
+              color\": \"#232\",\n      \"bgcolor\": \"#353\"\n    },\n    {\n   \
+              \   \"id\": 62,\n      \"type\": \"ArgosTranslateCLIPTextEncodeNode\"\
+              ,\n      \"pos\": [\n        -616.3306002036295,\n        -326.55705455447253\n\
+              \      ],\n      \"size\": [\n        400,\n        200\n      ],\n\
+              \      \"flags\": {},\n      \"order\": 11,\n      \"mode\": 0,\n  \
+              \    \"inputs\": [\n        {\n          \"name\": \"clip\",\n     \
+              \     \"type\": \"CLIP\",\n          \"link\": 154\n        }\n    \
+              \  ],\n      \"outputs\": [\n        {\n          \"name\": \"CONDITIONING\"\
+              ,\n          \"type\": \"CONDITIONING\",\n          \"links\": null\n\
+              \        },\n        {\n          \"name\": \"STRING\",\n          \"\
+              type\": \"STRING\",\n          \"links\": [\n            155\n     \
+              \     ]\n        }\n      ],\n      \"properties\": {\n        \"cnr_id\"\
+              : \"comfyui_custom_nodes_alekpet\",\n        \"ver\": \"f75fa7d544ee68eba0cf14a7ebb559a19fcf2f0d\"\
+              ,\n        \"Node name for S&R\": \"ArgosTranslateCLIPTextEncodeNode\"\
+              ,\n        \"aux_id\": \"AlekPet/ComfyUI_Custom_Nodes_AlekPet\"\n  \
+              \    },\n      \"widgets_values\": [\n        \"chinese\",\n       \
+              \ \"english\",\n        \"@用户输入\"\n      ]\n    },\n    {\n      \"\
+              id\": 9,\n      \"type\": \"SaveImage\",\n      \"pos\": [\n       \
+              \ 410,\n        -90\n      ],\n      \"size\": [\n        369.84961941141705,\n\
+              \        397.7848702574587\n      ],\n      \"flags\": {},\n      \"\
+              order\": 23,\n      \"mode\": 0,\n      \"inputs\": [\n        {\n \
+              \         \"name\": \"images\",\n          \"type\": \"IMAGE\",\n  \
+              \        \"link\": 9\n        }\n      ],\n      \"outputs\": [],\n\
+              \      \"properties\": {\n        \"cnr_id\": \"comfy-core\",\n    \
+              \    \"ver\": \"0.3.71\"\n      },\n      \"widgets_values\": [\n  \
+              \      \"Flux2\"\n      ]\n    }\n  ],\n  \"links\": [\n    [\n    \
+              \  9,\n      8,\n      0,\n      9,\n      0,\n      \"IMAGE\"\n   \
+              \ ],\n    [\n      12,\n      10,\n      0,\n      8,\n      1,\n  \
+              \    \"VAE\"\n    ],\n    [\n      19,\n      16,\n      0,\n      13,\n\
+              \      2,\n      \"SAMPLER\"\n    ],\n    [\n      24,\n      13,\n\
+              \      0,\n      8,\n      0,\n      \"LATENT\"\n    ],\n    [\n   \
+              \   30,\n      22,\n      0,\n      13,\n      1,\n      \"GUIDER\"\n\
+              \    ],\n    [\n      37,\n      25,\n      0,\n      13,\n      0,\n\
+              \      \"NOISE\"\n    ],\n    [\n      41,\n      6,\n      0,\n   \
+              \   26,\n      0,\n      \"CONDITIONING\"\n    ],\n    [\n      117,\n\
+              \      38,\n      0,\n      6,\n      0,\n      \"CLIP\"\n    ],\n \
+              \   [\n      120,\n      10,\n      0,\n      40,\n      1,\n      \"\
+              VAE\"\n    ],\n    [\n      121,\n      40,\n      0,\n      39,\n \
+              \     1,\n      \"LATENT\"\n    ],\n    [\n      122,\n      41,\n \
+              \     0,\n      40,\n      0,\n      \"IMAGE\"\n    ],\n    [\n    \
+              \  123,\n      42,\n      0,\n      41,\n      0,\n      \"IMAGE\"\n\
+              \    ],\n    [\n      125,\n      44,\n      0,\n      43,\n      1,\n\
+              \      \"LATENT\"\n    ],\n    [\n      126,\n      45,\n      0,\n\
+              \      44,\n      0,\n      \"IMAGE\"\n    ],\n    [\n      127,\n \
+              \     10,\n      0,\n      44,\n      1,\n      \"VAE\"\n    ],\n  \
+              \  [\n      128,\n      46,\n      0,\n      45,\n      0,\n      \"\
+              IMAGE\"\n    ],\n    [\n      131,\n      47,\n      0,\n      13,\n\
+              \      4,\n      \"LATENT\"\n    ],\n    [\n      132,\n      48,\n\
+              \      0,\n      13,\n      3,\n      \"SIGMAS\"\n    ],\n    [\n  \
+              \    133,\n      12,\n      0,\n      22,\n      0,\n      \"MODEL\"\
+              \n    ],\n    [\n      135,\n      50,\n      0,\n      47,\n      0,\n\
+              \      \"INT\"\n    ],\n    [\n      136,\n      50,\n      0,\n   \
+              \   48,\n      0,\n      \"INT\"\n    ],\n    [\n      137,\n      51,\n\
+              \      0,\n      47,\n      1,\n      \"INT\"\n    ],\n    [\n     \
+              \ 138,\n      51,\n      0,\n      48,\n      1,\n      \"INT\"\n  \
+              \  ],\n    [\n      144,\n      26,\n      0,\n      43,\n      0,\n\
+              \      \"CONDITIONING\"\n    ],\n    [\n      145,\n      43,\n    \
+              \  0,\n      39,\n      0,\n      \"CONDITIONING\"\n    ],\n    [\n\
+              \      153,\n      39,\n      0,\n      22,\n      1,\n      \"CONDITIONING\"\
+              \n    ],\n    [\n      154,\n      38,\n      0,\n      62,\n      0,\n\
+              \      \"CLIP\"\n    ],\n    [\n      155,\n      62,\n      1,\n  \
+              \    6,\n      1,\n      \"STRING\"\n    ]\n  ],\n  \"groups\": [\n\
+              \    {\n      \"id\": 1,\n      \"title\": \"Step 1 - Upload models\"\
+              ,\n      \"bounding\": [\n        -980,\n        -120,\n        318.18181818181813,\n\
+              \        416.0299011230469\n      ],\n      \"color\": \"#3f789e\",\n\
+              \      \"font_size\": 24,\n      \"flags\": {}\n    },\n    {\n    \
+              \  \"id\": 2,\n      \"title\": \"Custom sampler\",\n      \"bounding\"\
+              : [\n        -170,\n        -120,\n        558.5359191894531,\n    \
+              \    501.6\n      ],\n      \"color\": \"#3f789e\",\n      \"font_size\"\
+              : 24,\n      \"flags\": {}\n    },\n    {\n      \"id\": 3,\n      \"\
+              title\": \"Image size\",\n      \"bounding\": [\n        -170,\n   \
+              \     399.2259963703385,\n        560,\n        285.6\n      ],\n  \
+              \    \"color\": \"#3f789e\",\n      \"font_size\": 24,\n      \"flags\"\
+              : {}\n    },\n    {\n      \"id\": 4,\n      \"title\": \"Step2 - Prompt\"\
+              ,\n      \"bounding\": [\n        -637.1966368511673,\n        -441.2580461980067,\n\
+              \        447.1966368511671,\n        745.1826396486989\n      ],\n \
+              \     \"color\": \"#3f789e\",\n      \"font_size\": 24,\n      \"flags\"\
+              : {}\n    },\n    {\n      \"id\": 5,\n      \"title\": \"Reference\
+              \ images (up to 10)\",\n      \"bounding\": [\n        -980,\n     \
+              \   320,\n        790,\n        700\n      ],\n      \"color\": \"#3f789e\"\
+              ,\n      \"font_size\": 24,\n      \"flags\": {}\n    }\n  ],\n  \"\
+              config\": {},\n  \"extra\": {\n    \"ds\": {\n      \"scale\": 0.35439463350524,\n\
+              \      \"offset\": [\n        2375.2786230236647,\n        796.1140247125968\n\
+              \      ]\n    },\n    \"frontendVersion\": \"1.30.6\",\n    \"groupNodes\"\
+              : {},\n    \"VHS_latentpreview\": false,\n    \"VHS_latentpreviewrate\"\
+              : 0,\n    \"VHS_MetadataImage\": true,\n    \"VHS_KeepIntermediate\"\
+              : true,\n    \"workflowRendererVersion\": \"LG\"\n  },\n  \"version\"\
+              : 0.4\n}"
+        type: tool
+      height: 139
+      id: '17712324628120'
+      position:
+        x: 610.9572468671827
+        y: 586.1095508996581
+      positionAbsolute:
+        x: 610.9572468671827
+        y: 586.1095508996581
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 91.40628237689725
+      y: -33.57199181665797
+      zoom: 0.7578582832551991
+  rag_pipeline_variables: []
